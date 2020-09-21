@@ -1,0 +1,127 @@
+// package main;
+
+// import (
+// 		"fmt"
+// 		"encoding/json"
+// 		"log"
+// 		"net/http"
+// 		// "math/rand"
+// 		// "strconv"
+// 		"time"
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// 		"github.com/gorilla/mux"
+// )
+
+// type Game struct {
+// 		Id string `json:"id"`
+// 		State string `json:"state"`
+// 		// players := []int
+// }
+
+// // type Player struct {
+// // 		Id int `json:"id"`
+// // 		Name string `json:"name"`
+// // 		Score int `json:"score"`
+// // }
+
+// var games []Game
+
+// func handleGame(channel chan int) {
+// 		time.Sleep(time.Second * 2)
+// 		response := <- channel
+// 		fmt.Println(response)
+// }
+
+// // func handlePlayer(channel chan int) {
+// // 		time.Sleep(time.Second * 2)
+// // 		response := <- channel
+// // 		fmt.Println(response)
+// // }
+
+// func generateHandler(channel chan int) func(write http.ResponseWriter, request *http.Request) {
+// 		return func (write http.ResponseWriter, request *http.Request) {
+// 				channel <- 2
+// 				write.Header().Set("Content-Type", "application/json")
+// 				json.NewEncoder(write).Encode(games)
+// 		}
+// }
+
+// // func getGames(write http.ResponseWriter, request *http.Request) {
+// // 		write.Header().Set("Content-Type", "application/json")
+// // 		json.NewEncoder(write).Encode(games)
+// // }
+
+// // func getGame(write http.ResponseWriter, request *http.Request) {
+// // 		write.Header().Set("Content-Type", "application/json")
+// // 		params := mux.Vars(request)
+// // 		for _, item := range games {
+// // 				if item.Id == params["id"] {
+// // 						json.NewEncoder(write).Encode(item)
+// // 						return
+// // 				}
+// // 		}
+// // 		json.NewEncoder(write).Encode(&Game{})
+// // }
+
+// // func createGame(write http.ResponseWriter, request *http.Request) {
+// // 		write.Header().Set("Content-Type", "application/json")
+// // 		var game Game
+// // 		_ = json.NewDecoder(request.Body).Decode(&game)
+// // 		game.Id = strconv.Itoa(rand.Intn(10))
+// // 		games = append(games, game)
+// // 		json.NewEncoder(write).Encode(game)
+// // }
+
+// // func updateGames(write http.ResponseWriter, request *http.Request) {
+// // 		write.Header().Set("Content-Type", "application/json")
+// // 		params := mux.Vars(request)
+// // 				for index, item := range games {
+// // 						if item.Id == params["id"] {
+// // 								games = append(games[:index], games[index+1:]...)
+// // 								var game Game
+// // 								_ = json.NewDecoder(request.Body).Decode(&game)
+// // 								game.Id = strconv.Itoa(rand.Intn(10))
+// // 								games = append(games, game)
+// // 								json.NewEncoder(write).Encode(game)
+// // 								return
+// // 						}
+// // 				}
+// // 				json.NewEncoder(write).Encode(games)
+// // }
+
+// func main() {
+
+// 		var channel chan int
+// 		channel = make(chan int)
+
+// 		// init Router
+// 		router := mux.NewRouter()
+
+// 		go handleGame(channel)
+
+// 		// Mock Date
+// 		games = append(games, Game{Id: "1", State: "In progress"})
+// 		// games = append(games, Game{Id: "2", Name: "Game_2", State: "In coming"})
+// 		// games = append(games, Game{Id: "3", Name: "Game_3", State: "Done"})
+
+// 		// Route Handlers / Endpoints
+// 		router.HandleFunc("/games", generateHandler(channel))
+// 		// router.HandleFunc("/games/{id}", getGame).Methods("GET")
+// 		// router.HandleFunc("/games", createGame).Methods("POST")
+// 		// router.HandleFunc("/games/{id}", updateGames).Methods("PUT")
+
+// 		log.Fatal(http.ListenAndServe(":8082", router))
+
+// }
